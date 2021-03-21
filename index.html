@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Tour</title>
+    <style>
+        .country-div{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+        }
+        .country {
+            background-color: #002366;
+            color: #fff;
+            padding: 20px;
+            margin: 10px;
+        }
+        .country-name{
+            color: tomato;
+            font-size: 44px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Country Name</h1>
+    <div id="country-div" class="country-div">
+
+    </div>
+
+    <script>
+        fetch('https://restcountries.eu/rest/v2/all')
+            .then(response => response.json())
+            .then(data => displayCountries(data));
+
+        const displayCountries = countries => {
+            const countriesDiv = document.getElementById('country-div')
+            for (let i = 0; i < countries.length; i++) {
+                const country = countries[i];
+                const countryDiv = document.createElement('div');
+                countryDiv.className = 'country';
+
+                // const name = document.createElement('h3');
+                // name.innerText = country.name;
+                // const capital = document.createElement('p');
+                // capital.innerText = country.capital;
+                // countryDiv.appendChild(name);
+                // countryDiv.appendChild(capital);
+
+                const countryInfo = `
+                    <h3 class="country-name">${country.name}</h3>
+                    <p>Capital : ${country.capital}</p>
+                `
+                countryDiv.innerHTML = countryInfo;
+                countriesDiv.appendChild(countryDiv);
+                //console.log(country.name);
+            }
+        }
+
+        // const parentNode = document.getElementById('country-name');
+        // for (let i = 0; i < data.length; i++) {
+        //     const country = data[i];
+        //     const countryTitle = document.createElement('h3')
+        //     countryTitle.innerText = country.name;
+        //     parentNode.appendChild(countryTitle);
+
+        // }
+    </script>
+</body>
+
+</html>
